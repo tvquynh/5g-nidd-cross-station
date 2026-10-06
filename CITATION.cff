@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+title: "Cross-station evaluation of 5G intrusion detection: pipeline, per-cell result records, and record audit"
+message: "If you use this software, please cite both the article and the artifact."
+authors:
+  - family-names: Huynh
+    given-names: Trong-Thua
+    affiliation: Information Security Technology Lab, Posts and Telecommunications Institute of Technology, Vietnam
+    email: thuaht@ptit.edu.vn
+    orcid: "https://orcid.org/0000-0003-3934-1067"
+  - family-names: Huynh
+    given-names: De-Thu
+    affiliation: "School of Computer Science & Engineering, The Saigon International University, Vietnam"
+    email: huynhdethu@siu.edu.vn
+    orcid: "https://orcid.org/0000-0002-1227-0281"
+  - family-names: Trinh
+    given-names: Van-Quynh
+    affiliation: Information Security Technology Lab, Posts and Telecommunications Institute of Technology, Vietnam
+    email: quynhtv@ptithcm.edu.vn
+    orcid: "https://orcid.org/0009-0006-0514-6123"
+type: software
+license: MIT
+version: v1.0.0
+repository-code: "https://github.com/tvquynh/5g-nidd-cross-station"
+abstract: >-
+  Reproducibility artifact for a study of what cross-station evaluation reports
+  on the 5G-NIDD intrusion detection dataset. Ships the pipeline for four
+  evaluation protocols, the 652 per-cell result records behind every reported
+  number, the aggregation scripts that regenerate each table and figure without
+  retraining, tests covering the protocol definitions and the statistical
+  treatment, and a record audit that fails if the run total departs from the
+  figure the article reports. The 5G-NIDD dataset is distributed by its own
+  authors and is not redistributed here.
+preferred-citation:
+  type: article
+  title: "What Cross-Station Evaluation Hides: Direction Asymmetry and Scoring-Set Composition in 5G Intrusion Detection"
+  authors:
+    - family-names: Huynh
+      given-names: Trong-Thua
+      orcid: "https://orcid.org/0000-0003-3934-1067"
+    - family-names: Huynh
+      given-names: De-Thu
+      orcid: "https://orcid.org/0000-0002-1227-0281"
+    - family-names: Trinh
+      given-names: Van-Quynh
+      orcid: "https://orcid.org/0009-0006-0514-6123"
+  journal: "IEEE Transactions on Network and Service Management"
+  year: 2026
+  notes: "Under review at the time of this release."
