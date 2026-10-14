@@ -20,15 +20,29 @@ def flatten_metrics(record: dict) -> dict:
     return flat
 
 
-def aggregate(in_dir: Path) -> pd.DataFrame:
+# The subsample campaign draws 300,000 flows. A record above this is one of the
+# full-scale verification runs, which shares a cell identity with the subsample
+# run it checks: same model, same direction, same seed, different training set.
+SUBSAMPLE_MAX_TRAIN = 300_000
+
+
+def aggregate(in_dir: Path, include_full_scale: bool = False) -> pd.DataFrame:
     rows = []
+    skipped_full_scale = 0
     for f in sorted(in_dir.glob("*.json")):
         try:
             rec = json.loads(f.read_text())
+            if (not include_full_scale
+                    and (rec.get("n_train") or 0) > SUBSAMPLE_MAX_TRAIN):
+                skipped_full_scale += 1
+                continue
             rec["_filename"] = f.name
             rows.append(flatten_metrics(rec))
         except Exception as e:
             print(f"Skip {f.name}: {e}")
+    if skipped_full_scale:
+        print(f"Left out {skipped_full_scale} full-scale verification runs; "
+              f"pass include_full_scale=True to keep them.")
     if not rows:
         raise FileNotFoundError(f"No JSON metrics found in {in_dir}")
     df = pd.DataFrame(rows)

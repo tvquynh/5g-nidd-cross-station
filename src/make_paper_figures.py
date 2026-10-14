@@ -91,8 +91,9 @@ def figure_direction_asymmetry(cells: pd.DataFrame, out: Path) -> None:
     ax.set_xticks(x)
     ax.set_xticklabels([MODEL_LABELS[m] for m in models], rotation=30, ha="right")
     ax.set_ylabel("Binary false-positive rate")
-    ax.set_ylim(0, 0.82)
-    ax.legend(frameon=False, loc="upper left")
+    ax.set_ylim(0, 0.88)
+    ax.legend(frameon=False, loc="upper center", ncol=2,
+              columnspacing=2.2, borderaxespad=0.2)
     ax.grid(axis="y", linestyle=":", linewidth=0.5, color=GREY, alpha=0.5)
     ax.set_axisbelow(True)
     _save(fig, out)

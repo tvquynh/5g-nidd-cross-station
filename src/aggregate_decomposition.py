@@ -52,6 +52,10 @@ METRIC_LABELS = {
 }
 
 
+# The subsample campaign draws 300,000 flows; a run above this is full-scale.
+SUBSAMPLE_MAX_TRAIN = 300_000
+
+
 def load_records(directories: List[Path]) -> pd.DataFrame:
     rows: List[Dict] = []
     for directory in directories:
@@ -63,6 +67,12 @@ def load_records(directories: List[Path]) -> pd.DataFrame:
             if split not in CELL_ALIASES and split != "prior_control":
                 continue
             if record.get("features") != "full":
+                continue
+            # The full-scale verification runs share a cell identity with the
+            # subsample runs they check, so without this they collide. The
+            # tables report the subsample campaign; the full-scale runs are
+            # cited separately in the experimental setup.
+            if (record.get("n_train") or 0) > SUBSAMPLE_MAX_TRAIN:
                 continue
             row = {
                 "model": record["model"],
@@ -82,8 +92,34 @@ def load_records(directories: List[Path]) -> pd.DataFrame:
     frame = pd.DataFrame(rows)
     if frame.empty:
         return frame
-    # A configuration can appear from more than one source directory; keep one.
-    return frame.drop_duplicates(subset=["model", "protocol", "train_bs", "seed"])
+
+    # A configuration can appear in more than one source directory. Collapsing
+    # that silently is how two tables in one paper came to report different
+    # values for the same cell: whichever directory was listed first won, and
+    # nothing said so. Identical rows collapse; rows that disagree stop the run.
+    key = ["model", "protocol", "train_bs", "seed"]
+    conflicts = []
+    for identity, group in frame.groupby(key, dropna=False):
+        if len(group) == 1:
+            continue
+        for metric in METRICS:
+            if metric not in group:
+                continue
+            values = group[metric].dropna().unique()
+            if len(values) > 1:
+                conflicts.append((identity, metric, sorted(values)))
+    if conflicts:
+        lines = [f"{len(conflicts)} cell/metric pairs disagree between source "
+                 "directories. Pick one source rather than letting directory "
+                 "order decide:"]
+        for identity, metric, values in conflicts[:10]:
+            shown = ", ".join(f"{v:.9f}" for v in values)
+            lines.append(f"  {identity} {metric}: {shown}")
+        if len(conflicts) > 10:
+            lines.append(f"  ... and {len(conflicts) - 10} more")
+        raise SystemExit("\n".join(lines))
+
+    return frame.drop_duplicates(subset=key)
 
 
 def paired_effect(frame: pd.DataFrame, metric: str,
@@ -118,9 +154,12 @@ def main():
 
     paths = load_paths()
     results = Path(paths["results"])
+    # results/metrics/ is canonical for the accuracy grid. results/metrics_windows/
+    # is the same experiments in a second environment and is NOT a source here;
+    # it is compared against this one by src/compare_environments.py. Adding it
+    # back would reintroduce two different values for the same cell.
     frame = load_records([
         results / "decomposition",
-        results / "metrics_windows",
         results / "metrics",
     ])
     if frame.empty:

@@ -27,11 +27,16 @@
       "name": "Trinh, Van-Quynh",
       "affiliation": "Information Security Technology Lab, Posts and Telecommunications Institute of Technology, Vietnam",
       "orcid": "0009-0006-0514-6123"
+    },
+    {
+      "name": "Nguyen, Minh Thang",
+      "affiliation": "Faculty of Information Technology, Ho Chi Minh City University of Economics and Finance (UEF), Vietnam",
+      "orcid": "0009-0000-0218-4470"
     }
   ],
   "upload_type": "software",
   "license": "mit",
   "access_right": "open",
-  "version": "v1.0.0",
+  "version": "v1.0.1",
   "language": "eng"
 }

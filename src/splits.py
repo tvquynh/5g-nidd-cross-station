@@ -69,6 +69,42 @@ def split_temporal_cross_day(df: pd.DataFrame, seed: int = None) -> Tuple[np.nda
     return np.where(train_mask)[0], np.where(test_mask)[0]
 
 
+# ---------------------------------------------------------------------------
+# WHAT A COMPOSITION CONTRAST ACTUALLY HOLDS FIXED
+#
+# The two-by-two design is read as varying one side while the other is held.
+# How exactly the other side is held depends on which side it is, and the two
+# functions below do not consume randomness the same way.
+#
+#   * A side held "raw" is taken whole, with no random draw. Both cells of such
+#     a contrast therefore get bit-identical indices on that side.
+#   * A side held "matched" is drawn. split_cross_station iterates classes in
+#     order of appearance, df["y_multi"].unique(), and alternates train and test
+#     draws per class. split_cross_station_factorial iterates np.unique(y),
+#     which is sorted, and draws only on the side being matched. For the same
+#     seed the two therefore land different random numbers on different classes.
+#
+# Measured on 5G-NIDD, both directions, all ten seeds, replicating the
+# campaign's stratified subsample first:
+#
+#   contrast                            side held    identical   overlap
+#   test composition (train raw)        training       20/20       100%
+#   test composition (train matched)    training        0/20     81.8-97.4%
+#   train composition (test raw)        scoring        20/20       100%
+#   train composition (test matched)    scoring         0/20     81.8-82.5%
+#
+# Sizes and per-class composition are identical in every case; the rows are not.
+# The manuscript reads its result from the two exactly-held contrasts and
+# reports the other two as a robustness check.
+#
+# This is documented rather than fixed. Every result record in the release was
+# produced by the code as it stands, and changing the draw order would
+# invalidate them without re-running the campaign. A future campaign that wants
+# four exactly-held contrasts should pass the training indices in explicitly
+# rather than re-deriving them from the seed.
+# ---------------------------------------------------------------------------
+
+
 def split_cross_station(df: pd.DataFrame, train_bs: int, seed: int) -> Tuple[np.ndarray, np.ndarray]:
     """Train on train_bs (1 or 2) -> Test on the other.
     Stratified rebalance per class: subsample BOTH train and test so they have

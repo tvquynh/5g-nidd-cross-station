@@ -30,9 +30,16 @@ def ci95(x):
 
 
 def compare(df: pd.DataFrame, metric: str = "macro_f1"):
-    """For each (model, feature) pair, compute Wilcoxon comparing splits."""
+    """For each (model, feature) pair, compute Wilcoxon comparing splits.
+
+    Records from other campaigns carry no split, model or feature set, so those
+    columns arrive with missing values mixed in. Comparing a float NaN against a
+    split name raises, and leaving the rows in would silently create a nameless
+    group, so they are dropped here rather than guarded against downstream.
+    """
     out = []
-    splits = df["split"].unique().tolist()
+    df = df.dropna(subset=["split", "model", "features"])
+    splits = sorted(df["split"].unique().tolist())
     for model in df["model"].unique():
         for feat in df["features"].unique():
             sub = df[(df["model"] == model) & (df["features"] == feat)]

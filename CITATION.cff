@@ -17,9 +17,14 @@ authors:
     affiliation: Information Security Technology Lab, Posts and Telecommunications Institute of Technology, Vietnam
     email: quynhtv@ptithcm.edu.vn
     orcid: "https://orcid.org/0009-0006-0514-6123"
+  - family-names: Nguyen
+    given-names: Minh Thang
+    affiliation: "Faculty of Information Technology, Ho Chi Minh City University of Economics and Finance (UEF), Vietnam"
+    email: thangnm@uef.edu.vn
+    orcid: "https://orcid.org/0009-0000-0218-4470"
 type: software
 license: MIT
-version: v1.0.0
+version: v1.0.1
 repository-code: "https://github.com/tvquynh/5g-nidd-cross-station"
 abstract: >-
   Reproducibility artifact for a study of what cross-station evaluation reports
@@ -43,6 +48,9 @@ preferred-citation:
     - family-names: Trinh
       given-names: Van-Quynh
       orcid: "https://orcid.org/0009-0006-0514-6123"
+    - family-names: Nguyen
+      given-names: Minh Thang
+      orcid: "https://orcid.org/0009-0000-0218-4470"
   journal: "IEEE Transactions on Network and Service Management"
   year: 2026
-  notes: "Under review at the time of this release."
+  notes: "Not yet accepted at the time of this release."
