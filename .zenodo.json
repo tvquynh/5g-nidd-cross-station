@@ -1,15 +1,14 @@
 {
-  "title": "Cross-station evaluation of 5G intrusion detection: pipeline, per-cell result records, and record audit",
-  "description": "Reproducibility artifact for the manuscript 'What Cross-Station Evaluation Hides: Direction Asymmetry and Scoring-Set Composition in 5G Intrusion Detection'. Contains: (1) the full experimental pipeline for four evaluation protocols on 5G-NIDD, namely a stratified random split, a within-day temporal split, cross-station transfer reported separately per direction, and a same-station prior control, over seven model families including two deep tabular architectures; (2) the per-cell result records behind every reported number, 652 runs in four sets, one JSON record per run; (3) the aggregation scripts that regenerate each table and figure from those records without retraining; (4) a pytest suite covering the protocol definitions and the statistical treatment; (5) count_runs.py, which recounts the published records and fails if the total departs from the figure the article reports. The 5G-NIDD dataset itself is distributed by its own authors and is NOT redistributed here; the loader consumes their published Encoded.csv and asserts its row and per-class counts on load.",
+  "title": "DRCE: pipeline, per-cell result records, and record audit for direction-resolved cross-environment evaluation of 5G intrusion detection",
+  "description": "Reproducibility artifact for the manuscript 'DRCE: A Direction-Resolved Protocol for Cross-Environment Evaluation of Machine Learning Intrusion Detectors'. The manuscript specifies DRCE, a protocol that resolves the transfer direction, reports prevalence-independent rates alongside any aggregate score, and attributes degradation through a factorial composition design with a same-station prior control. Contains: (1) the full experimental pipeline for four evaluation protocols on 5G-NIDD, namely a stratified random split, a within-day temporal split, cross-station transfer reported separately per direction, and a same-station prior control, over seven model families including two deep tabular architectures; (2) the per-cell result records behind every reported number, 652 runs in four sets, one JSON record per run; (3) the aggregation scripts that regenerate each table and figure from those records without retraining; (4) a pytest suite covering the protocol definitions and the statistical treatment; (5) count_runs.py, which recounts the published records and fails if the total departs from the figure the article reports. The 5G-NIDD dataset itself is distributed by its own authors and is NOT redistributed here; the loader consumes their published Encoded.csv and asserts its row and per-class counts on load.",
   "notes": "CPU-only runs on a single workstation. Runs are counted once each: a run is keyed on protocol, transfer direction, model family, seed, and training-set size, because the cross-station runs were repeated on all 1.21M flows as a check on the 300k subsample. The repository shares a data loader, a job driver and a seed list with a separate open-set study by an overlapping author group; neither reports a result that depends on the other, and neither holds out an attack type in the other's sense.",
   "keywords": [
-    "intrusion detection",
-    "evaluation methodology",
-    "distribution shift",
-    "false-positive rate",
     "5G networks",
-    "network measurement",
     "5G-NIDD",
+    "distribution shift",
+    "evaluation methodology",
+    "intrusion detection",
+    "machine learning",
     "reproducibility"
   ],
   "creators": [
@@ -37,6 +36,6 @@
   "upload_type": "software",
   "license": "mit",
   "access_right": "open",
-  "version": "v1.0.1",
+  "version": "v1.0.2",
   "language": "eng"
 }

@@ -130,8 +130,16 @@ def figure_factorial(cells: pd.DataFrame, out: Path) -> None:
         ax.grid(axis="y", linestyle=":", linewidth=0.5, color=GREY, alpha=0.5)
         ax.set_axisbelow(True)
 
-    axes[0].legend(frameon=False, fontsize=6.5, loc="lower left", ncol=1)
-    fig.suptitle("")
+    # The legend used to sit at the lower left of the left panel, where the
+    # x tick labels, rotated 30 degrees, run up into it and collide. Neither
+    # panel has usable space inside: the left one carries bars to 0.93, and
+    # the free band in the right one is too short for four entries. Put it
+    # above both panels instead, where it also reads as applying to both.
+    # savefig runs with bbox_inches="tight", so the added strip is kept.
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, frameon=False, fontsize=6.5, ncol=4,
+               loc="lower center", bbox_to_anchor=(0.5, 0.99),
+               columnspacing=1.6, handlelength=1.3, handletextpad=0.5)
     _save(fig, out)
 
 

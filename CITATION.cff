@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "Cross-station evaluation of 5G intrusion detection: pipeline, per-cell result records, and record audit"
+title: "DRCE: pipeline, per-cell result records, and record audit for direction-resolved cross-environment evaluation of 5G intrusion detection"
 message: "If you use this software, please cite both the article and the artifact."
 authors:
   - family-names: Huynh
@@ -24,11 +24,12 @@ authors:
     orcid: "https://orcid.org/0009-0000-0218-4470"
 type: software
 license: MIT
-version: v1.0.1
+version: v1.0.2
 repository-code: "https://github.com/tvquynh/5g-nidd-cross-station"
 abstract: >-
-  Reproducibility artifact for a study of what cross-station evaluation reports
-  on the 5G-NIDD intrusion detection dataset. Ships the pipeline for four
+  Reproducibility artifact for DRCE, a direction-resolved protocol for
+  cross-environment evaluation, validated on the 5G-NIDD intrusion
+  detection dataset. Ships the pipeline for four
   evaluation protocols, the 652 per-cell result records behind every reported
   number, the aggregation scripts that regenerate each table and figure without
   retraining, tests covering the protocol definitions and the statistical
@@ -37,7 +38,7 @@ abstract: >-
   authors and is not redistributed here.
 preferred-citation:
   type: article
-  title: "What Cross-Station Evaluation Hides: Direction Asymmetry and Scoring-Set Composition in 5G Intrusion Detection"
+  title: "DRCE: A Direction-Resolved Protocol for Cross-Environment Evaluation of Machine Learning Intrusion Detectors"
   authors:
     - family-names: Huynh
       given-names: Trong-Thua
@@ -51,6 +52,6 @@ preferred-citation:
     - family-names: Nguyen
       given-names: Minh Thang
       orcid: "https://orcid.org/0009-0000-0218-4470"
-  journal: "IEEE Transactions on Network and Service Management"
+  journal: "International Journal of Interactive Multimedia and Artificial Intelligence"
   year: 2026
   notes: "Not yet accepted at the time of this release."

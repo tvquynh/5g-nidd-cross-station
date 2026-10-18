@@ -1,12 +1,12 @@
-# What Cross-Station Evaluation Hides
+# DRCE: direction-resolved cross-environment evaluation
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23190918.svg)](https://doi.org/10.5281/zenodo.23190918)
 
 
-Reproducibility artifact for the manuscript *What Cross-Station Evaluation
-Hides: Direction Asymmetry and Scoring-Set Composition in 5G Intrusion
-Detection*, under review at IEEE Transactions on Network and Service
-Management.
+Reproducibility artifact for the manuscript *DRCE: A Direction-Resolved
+Protocol for Cross-Environment Evaluation of Machine Learning Intrusion
+Detectors*, under review at the International Journal of Interactive
+Multimedia and Artificial Intelligence.
 
 Every number in the article resolves to a file here. The pipeline, the
 per-cell result records, the aggregation scripts that generate each table and
@@ -14,12 +14,16 @@ figure, and the tests all ship. The 5G-NIDD dataset does not: its authors
 distribute it, and this repository consumes their published release rather
 than redistributing it.
 
-## What the article measures
+## What the article specifies
 
-Cross-station evaluation, training an intrusion detector on one base station
-and scoring it on another, is the standard test of whether a 5G detector
-generalizes beyond its capture environment. The article shows that the protocol
-as commonly applied misreports what it measures, and quantifies by how much.
+Cross-environment evaluation, fitting an intrusion detector on one base
+station and scoring it on another, is the standard test of whether a 5G
+detector generalizes beyond its capture environment. The article specifies
+DRCE, a protocol that resolves the transfer direction, reports
+prevalence-independent rates alongside any aggregate score, and attributes
+degradation through a factorial composition design with a same-station prior
+control. It then validates the protocol and quantifies what the common form
+of the measurement leaves undeclared.
 
 1. **Degradation is direction-asymmetric.** Detectors trained on the
    attack-heavy station flag 69 to 70 percent of benign flows from the other
